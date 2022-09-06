@@ -1,0 +1,77 @@
+1 estartamos o projeto com NPM INIT
+2 instalamos 
+
+ "dependencies": {
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
+        "mysql2": "^2.3.3-rc.0",
+        "path": "^0.12.7",
+        "sequelize": "^6.9.0",
+        "sequelize-cli": "^6.3.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.14"
+    }
+
+3 utilizamos o comando 
+ - npx sequelize-cli init 
+para criar as pastas de base do projeto que são 
+ - config
+ - migrations
+ - models
+ - seeders
+
+ 4 criamos o servidor no index.js
+
+ 5 criamos a pasta api e colocamos o arquivo index.js(principal) e arrumamos a referencia no package.json 
+ - api
+   - index.js
+
+ 6 jogamos todas as pastas do sequelize-cli dentro da api
+  - api
+   - config
+   - migrations
+   - models
+   - seeders
+
+ 7 criamos o arquivo .sequelizerc e fizemos a referencia das pastas que mudamos de lugar para que 
+ os códigos no prompt funcionem
+
+ 8 - config
+     - config.json
+   neste arquivo configuramos a conexão com o banco que ja criamos
+   nele contem os ambientes em que vamos trabalhar(dev,prod.test)
+
+ 9 utilizamos o codigo
+  - npx sequelize-cli model:create --name Pessoas --attributes nome:string,ativo:boolean,email:string,role:string
+  para criar um model de uma tabela na pasta model e criar om DAO dentro da pasta migrations
+  se o atributo for uma data e não precisar de horário colocamos 
+  - ... --attributes data:dateonly
+  
+ 9.1 migrations 
+ - migração em SQL migração de dados: transferencia de dados entre plataformas(ex: de um banco para outro)
+ - migração com ORM: alteraçoes incrementais e rastreáveis no banco(criar uma tabela, apagar ou voltar no estado anterior)
+   - Coordenar alteraçoes feitas por diferentes pessoas do time nas tabelas do banco
+   - Rastrear (e reverter) alteraçoesfeitas no banco para debugar conflitos e erros
+
+ 10 na sequencia usamos o codigo para executar a migração do aplicatico para o banco
+ - npx sequelize-cli db:migrate
+   e no prompt 
+ - mysql> use escola_ingles;
+   que é a vizualização do banco nosso
+ - mysql> show tables;
+ - mysql> describe Pessoas;
+
+ 11 Inserindo dados pelo prompt 
+ - insert into Pessoas (nome, ativo, email, role, createdAt, updatedAt) values ("Carla Gomes", 1, "carla@carla.com", "estudante", NOW(), NOW());
+ - mysql> select * from Pessoas;
+
+ 12 seeders pasta de arquivos para inserir dados de exemplo nas tabelas crie um arquivo seed
+ - npx sequelize-cli seed:generate --name demo-pessoa
+ após alimentar o seed execute
+ - npx sequelize-cli db:seed:all
+ temos que criar os seeds em ordem
+
+13 quando tabelas tem chaves estrangeiras precisamos criar suas relações no model 
+e criar suas colunas no migrations antes de migrar para o banco
+ 

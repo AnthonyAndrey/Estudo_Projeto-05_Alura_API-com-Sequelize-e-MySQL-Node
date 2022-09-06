@@ -1,0 +1,10 @@
+const path = require('path');
+
+module.exports = {
+    'config': path.resolve('./api/config/config.json'),
+    // 'config': path.resolve('config', './api/database.json'),//aqui tambem
+    // 'models-path': path.resolve('db', './api/models'), //aqui eu apaguei o db porque não estava achando a pasta
+    'models-path': path.resolve('./api/models'),
+    'seeders-path': path.resolve('./api/seeders'),
+    'migrations-path': path.resolve('./api/migrations')
+};
